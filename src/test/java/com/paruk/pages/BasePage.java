@@ -3,7 +3,7 @@ package com.paruk.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
-public class BasePage {
+abstract class BasePage {
 
     protected WebDriver driver;
 
@@ -12,7 +12,7 @@ public class BasePage {
         PageFactory.initElements(driver,this);
     }
 
-    public String getUrl() {
+    public String getUrl(){
         return driver.getCurrentUrl();
     }
 }

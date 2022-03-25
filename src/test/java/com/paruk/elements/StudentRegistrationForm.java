@@ -1,10 +1,11 @@
 package com.paruk.elements;
 
+import com.paruk.pages.PageWithMenu;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class StudentRegistrationForm extends AbstractForm{
+public class StudentRegistrationForm extends PageWithMenu {
 
     @FindBy(xpath = "//input[@id='firstName']")
     private WebElement firstName;

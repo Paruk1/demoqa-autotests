@@ -1,4 +1,4 @@
-package com.paruk.elements;
+package com.paruk.pages;
 
 import com.paruk.enums.EModules;
 import org.openqa.selenium.By;
@@ -12,35 +12,42 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
 
-public class Menu {
-
-    @FindBy(xpath = "//div[@class='left-pannel']//div[@class='element-group']")
-    public List<WebElement> modules;
+public abstract class PageWithMenu extends BasePage {
 
     private WebDriverWait webDriverWait;
-    private WebDriver driver;
 
-    public Menu(WebDriver driver) {
-        this.driver = driver;
-        webDriverWait = new WebDriverWait(driver,Duration.ofSeconds(10));
-        PageFactory.initElements(driver, this);
+    @FindBy(xpath = "//div[@class='main-header']")
+    private WebElement title;
 
+    @FindBy(xpath = "//div[@class='left-pannel']//div[@class='element-group']")
+    private List<WebElement> modules;
+
+
+    public PageWithMenu(WebDriver driver){
+        super(driver);
+        PageFactory.initElements(driver,this);
+        webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    public void findForm(EModules moduleName,String subModuleName) {
+    public String getTitleForm() {
+        return title.getText();
+    }
+
+    public void findForm(EModules moduleName, String subModuleName) {
         findModuleByNameAndClick(moduleName);
         findSubModuleByNameAndClick(subModuleName);
     }
 
-    public List<WebElement> getOpenedSubModules(){
+    private List<WebElement> getOpenedSubModules(){
         List<WebElement> subModules = webDriverWait
-                .until(driver -> driver.findElements(By.xpath("//div[contains(@class, 'element-list collapse show')]//li")));
+                    .until(driver -> driver.findElements(By.xpath("//div[contains(@class, 'element-list collapse show')]//li")));
         return subModules;
     }
 
     public void findModuleByNameAndClick(EModules moduleName) {
         for (WebElement module : modules) {
             ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", module);
+
             //временная переменная для получения getText() у конкретного модуля
             WebElement seeModule = module.findElement(By.xpath(".//div[contains(@class, 'header-wrapper')]"));
 
@@ -62,5 +69,6 @@ public class Menu {
         ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", subModule );
         subModule.click();
     }
+
 
 }

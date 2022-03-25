@@ -1,17 +1,18 @@
 package com.paruk.tests;
 
+import com.paruk.elements.StudentRegistrationForm;
 import com.paruk.enums.EModules;
-import com.paruk.pages.FormsPage;
 import com.paruk.pages.MainPage;
-import com.paruk.settings.WebDriverSettings;
+import com.paruk.pages.PageWithMenu;
+import com.paruk.settings.BaseTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 
-public class MainTest extends WebDriverSettings {
+public class MainTest extends BaseTest {
 
     private MainPage mainPage;
-    private FormsPage formsPage;
+    private PageWithMenu pageWithMenu;
 
 
     @Test
@@ -20,10 +21,12 @@ public class MainTest extends WebDriverSettings {
 
         mainPage.open();
 
-        formsPage = mainPage.navigateToModule(EModules.FORMS);
+        mainPage.navigateToModule(EModules.ELEMENTS);
 
-        formsPage.showModule(EModules.ELEMENTS,"Web Tables");
+        pageWithMenu = new StudentRegistrationForm(driver);
 
-        Assertions.assertEquals("https://demoqa.com/webtables", formsPage.getUrl());
+        pageWithMenu.findForm(EModules.ELEMENTS,"Web Tables");
+
+        Assertions.assertEquals("https://demoqa.com/webtables", pageWithMenu.getUrl());
     }
 }

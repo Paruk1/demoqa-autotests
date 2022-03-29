@@ -21,11 +21,11 @@ public class MainPage extends BasePage {
     }
 
 
-    public void navigateToModule(EModules nameModule) {
+    public <E extends EModules>void navigateToModule(E nameModule) {
         findModuleByName(nameModule).click();
     }
 
-    private WebElement findModuleByName(EModules moduleName) {
+    private <E extends EModules> WebElement findModuleByName(E moduleName) {
         return modulesList.stream()
                 .filter(element -> element.getText().equalsIgnoreCase(moduleName.getName()))
                 .findFirst()

@@ -1,6 +1,8 @@
 package com.paruk.pages;
 
 import com.paruk.enums.EModules;
+import com.paruk.enums.ESubElements;
+import com.paruk.enums.ISubModules;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -33,7 +35,7 @@ public abstract class PageWithMenu extends BasePage {
         return title.getText();
     }
 
-    public void findForm(EModules moduleName, String subModuleName) {
+    public <E extends ISubModules> void findForm(EModules moduleName, E subModuleName) {
         findModuleByNameAndClick(moduleName);
         findSubModuleByNameAndClick(subModuleName);
     }
@@ -44,7 +46,7 @@ public abstract class PageWithMenu extends BasePage {
         return subModules;
     }
 
-    public void findModuleByNameAndClick(EModules moduleName) {
+    public <E extends EModules>void findModuleByNameAndClick(E moduleName) {
         for (WebElement module : modules) {
             ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", module);
 
@@ -61,14 +63,13 @@ public abstract class PageWithMenu extends BasePage {
     }
 
 
-    public void findSubModuleByNameAndClick(String subModuleName) {
+    public <E extends ISubModules>void findSubModuleByNameAndClick(E subModuleName) {
         WebElement subModule = getOpenedSubModules().stream()
-                .filter(element -> element.getText().toLowerCase().equals(subModuleName.toLowerCase()))
+                .filter(element -> element.getText().equalsIgnoreCase(subModuleName.getName()))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("No such subModule in this module!"));
         ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", subModule );
         subModule.click();
     }
-
 
 }

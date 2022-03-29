@@ -8,13 +8,13 @@ public enum EModules {
     INTERACTIONS("Interactions"),
     BOOKSTOREAPPLICATION("Book Store Application");
 
-    private String name;
+    private String moduleName;
 
-    EModules(String name) {
-        this.name = name;
+    EModules(String moduleName) {
+        this.moduleName = moduleName;
     }
 
-    public String getName(){
-        return this.name;
+    public String getName() {
+        return this.moduleName;
     }
 }

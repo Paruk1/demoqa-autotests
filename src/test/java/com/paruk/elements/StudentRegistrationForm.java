@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class StudentRegistrationForm extends PageWithMenu {
+public class StudentRegistrationForm extends BaseForm {
 
     @FindBy(xpath = "//input[@id='firstName']")
     private WebElement firstName;

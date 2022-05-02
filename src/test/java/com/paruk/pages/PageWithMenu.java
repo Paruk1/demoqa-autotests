@@ -16,7 +16,7 @@ import java.util.List;
 
 public abstract class PageWithMenu extends BasePage {
 
-    private WebDriverWait webDriverWait;
+    protected WebDriverWait webDriverWait;
 
     @FindBy(xpath = "//div[@class='main-header']")
     private WebElement title;
@@ -54,7 +54,7 @@ public abstract class PageWithMenu extends BasePage {
             WebElement seeModule = module.findElement(By.xpath(".//div[contains(@class, 'header-wrapper')]"));
 
             if (seeModule.getText().trim().equals(moduleName.getName())) {
-                if(!module.isSelected()){
+                if(!module.isEnabled()){
                     module.click();
                 }
                 break;

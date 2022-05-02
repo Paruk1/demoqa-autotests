@@ -31,6 +31,6 @@ public class BaseTest {
 
     @AfterEach
     public void close() {
-        driver.close();
+        //driver.close();
     }
 }

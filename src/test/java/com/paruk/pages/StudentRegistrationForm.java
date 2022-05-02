@@ -1,11 +1,14 @@
-package com.paruk.elements;
+package com.paruk.pages;
 
-import com.paruk.pages.PageWithMenu;
+import com.paruk.elements.HobbiesCheckBox;
+import com.paruk.elements.SubjectField;
+import com.paruk.enums.EHobbies;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class StudentRegistrationForm extends BaseForm {
+public class StudentRegistrationForm extends PageWithMenu {
 
     @FindBy(xpath = "//input[@id='firstName']")
     private WebElement firstName;
@@ -16,7 +19,7 @@ public class StudentRegistrationForm extends BaseForm {
     @FindBy(xpath = "//input[@id='userEmail']")
     private WebElement email;
 
-    @FindBy(xpath = "//input[@id='gender-radio-1']")
+    @FindBy(xpath = "//div[@class='custom-control custom-radio custom-control-inline'][1]")
     private WebElement radioButtonMale;
 
     @FindBy(xpath = "//input[@id='gender-radio-2']")
@@ -31,17 +34,9 @@ public class StudentRegistrationForm extends BaseForm {
     @FindBy(xpath = "//input[@id='dateOfBirthInput']")////////////////////
     private WebElement dateOfBirthd;
 
-    @FindBy(xpath = "//div[@id='subjectsContainer']")////////////////////
-    private WebElement subjects;
+    private SubjectField subjectField;
 
-    @FindBy(xpath = "//input[@id='hobbies-checkbox-1']")
-    private WebElement sportsCheckBox;
-
-    @FindBy(xpath = "//input[@id='hobbies-checkbox-2']")
-    private WebElement readingCheckBox;
-
-    @FindBy(xpath = "//input[@id='hobbies-checkbox-3']")
-    private WebElement musicCheckBox;
+    private HobbiesCheckBox hobbiesCheckBox;
 
     @FindBy(xpath = "//input[@id='uploadPicture']")
     private WebElement selectPicture;
@@ -60,6 +55,8 @@ public class StudentRegistrationForm extends BaseForm {
 
     public StudentRegistrationForm(WebDriver driver){
         super(driver);
+        subjectField = new SubjectField(driver);
+        hobbiesCheckBox = new HobbiesCheckBox(driver);
     }
 
     public StudentRegistrationForm fillFirstName(String firstNamex) {
@@ -72,11 +69,15 @@ public class StudentRegistrationForm extends BaseForm {
         return this;
     }
 
+
     public StudentRegistrationForm fillEmailAddress(String name) {
         email.sendKeys(name);
         return this;
     }
+
+
     public StudentRegistrationForm selectMale() {
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(radioButtonMale));
         radioButtonMale.click();
         return this;
     }
@@ -91,23 +92,21 @@ public class StudentRegistrationForm extends BaseForm {
         return this;
     }
 
+
     public StudentRegistrationForm fillMobileNumber(String number) {
         mobileNumber.sendKeys(number);
         return this;
     }
 
-    public StudentRegistrationForm selectSport(){
-        sportsCheckBox.click();
+
+    public StudentRegistrationForm addSubject(String subjectName) {
+        subjectField.fillSubject(subjectName);
         return this;
     }
 
-    public StudentRegistrationForm selectReading(){
-        readingCheckBox.click();
-        return this;
-    }
 
-    public StudentRegistrationForm selectMusic(){
-        musicCheckBox.click();
+    public <E extends EHobbies>StudentRegistrationForm selectHobbie(E hobbieName){
+        hobbiesCheckBox.select(hobbieName);
         return this;
     }
 
@@ -115,6 +114,7 @@ public class StudentRegistrationForm extends BaseForm {
         selectPicture.click();
         return this;
     }
+
 
     public StudentRegistrationForm fillCurrentAddress(String address) {
         currentAddress.sendKeys(address);
@@ -125,4 +125,7 @@ public class StudentRegistrationForm extends BaseForm {
         btnSubmit.click();
         return this;
     }
+
+
+
 }

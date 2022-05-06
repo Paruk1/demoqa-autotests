@@ -19,7 +19,7 @@ public class BaseTest {
 
     @BeforeAll
     public void setup(){
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\AParail\\Desktop\\demoqa-autotests\\src\\main\\resources\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "D:\\Intern\\demoqa-autotests\\src\\main\\resources\\chromedriver.exe");
         options = new ChromeOptions().addArguments("start-maximized");
     }
 

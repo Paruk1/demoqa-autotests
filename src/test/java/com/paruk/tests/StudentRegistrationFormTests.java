@@ -2,6 +2,7 @@ package com.paruk.tests;
 
 import com.paruk.enums.EHobbies;
 import com.paruk.enums.EModules;
+import com.paruk.enums.EMonth;
 import com.paruk.enums.ESubForms;
 import com.paruk.pages.MainPage;
 import com.paruk.pages.PageWithMenu;
@@ -17,7 +18,7 @@ public class StudentRegistrationFormTests extends BaseTest {
     private PageWithMenu pageWithMenu;
 
     @Test
-    public void inputAllValidData(){
+    public void inputAllValidData() {
         mainPage = new MainPage(driver);
 
         mainPage.open();
@@ -35,12 +36,13 @@ public class StudentRegistrationFormTests extends BaseTest {
         StudentRegistrationForm studentRegistrationForm = (StudentRegistrationForm) pageWithMenu;
 
         studentRegistrationForm.fillFirstName("Andrey")
-                                .fillLastName("Parail")
-                                .fillEmailAddress("parail200111@gmail.com")
-                                .selectMale()
-                                .fillMobileNumber("0939710529")
-                                .addSubject("Maths")
-                                .selectHobbie(EHobbies.MUSIC)
-                                .fillCurrentAddress("Darova hahaha");
+                .fillLastName("Parail")
+                .fillEmailAddress("parail200111@gmail.com")
+                .selectMale()
+                .fillMobileNumber("0939710529")
+                .addSubject("Maths")
+                .selectHobbie(EHobbies.MUSIC)
+                .fillCurrentAddress("Darova hahaha")
+                .selectMonthYearDay(EMonth.MARCH, 1995, 13);
     }
 }

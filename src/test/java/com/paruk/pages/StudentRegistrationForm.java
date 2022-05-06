@@ -1,12 +1,17 @@
 package com.paruk.pages;
 
+import com.paruk.elements.DatePicker;
 import com.paruk.elements.HobbiesCheckBox;
 import com.paruk.elements.SubjectField;
 import com.paruk.enums.EHobbies;
+import com.paruk.enums.EMonth;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.time.DayOfWeek;
+import java.util.Calendar;
 
 public class StudentRegistrationForm extends PageWithMenu {
 
@@ -31,8 +36,7 @@ public class StudentRegistrationForm extends PageWithMenu {
     @FindBy(xpath = "//input[@id='userNumber']")
     private WebElement mobileNumber;
 
-    @FindBy(xpath = "//input[@id='dateOfBirthInput']")////////////////////
-    private WebElement dateOfBirthd;
+    private DatePicker datePicker;
 
     private SubjectField subjectField;
 
@@ -57,6 +61,7 @@ public class StudentRegistrationForm extends PageWithMenu {
         super(driver);
         subjectField = new SubjectField(driver);
         hobbiesCheckBox = new HobbiesCheckBox(driver);
+        datePicker = new DatePicker(driver);
     }
 
     public StudentRegistrationForm fillFirstName(String firstNamex) {
@@ -95,6 +100,13 @@ public class StudentRegistrationForm extends PageWithMenu {
 
     public StudentRegistrationForm fillMobileNumber(String number) {
         mobileNumber.sendKeys(number);
+        return this;
+    }
+
+    public <E extends EMonth>StudentRegistrationForm selectMonthYearDay(E month,int year,int day){
+        datePicker.selectMonth(month);
+        datePicker.selectYear(year);
+        datePicker.selectDay(day);
         return this;
     }
 

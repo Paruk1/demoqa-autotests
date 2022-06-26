@@ -1,6 +1,6 @@
 package com.paruk.enums;
 
-public enum ESubForms implements ISubModules{
+public enum ESubForms {
 
     PRACTICEFORM("Practice Form");
 
@@ -10,7 +10,6 @@ public enum ESubForms implements ISubModules{
         this.subModuleName = subModuleName;
     }
 
-    @Override
     public String getName() {
         return this.subModuleName;
     }

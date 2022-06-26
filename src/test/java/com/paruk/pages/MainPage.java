@@ -4,7 +4,7 @@ import com.paruk.enums.EModules;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.List;
 
 public class MainPage extends BasePage {
@@ -21,8 +21,9 @@ public class MainPage extends BasePage {
     }
 
 
-    public <E extends EModules>void navigateToModule(E nameModule) {
-        findModuleByName(nameModule).click();
+    public <E extends EModules> void navigateToModule(E nameModule) {
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(findModuleByName(nameModule)));
+        element.click();
     }
 
     private <E extends EModules> WebElement findModuleByName(E moduleName) {

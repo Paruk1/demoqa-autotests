@@ -4,10 +4,11 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInstance;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import java.awt.*;
 import java.time.Duration;
 
 
@@ -24,10 +25,11 @@ public class BaseTest {
     }
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws InterruptedException {
         driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));  // в селениум 4
     }
+
 
     @AfterEach
     public void close() {

@@ -1,6 +1,6 @@
 package com.paruk.enums;
 
-public enum ESubElements implements ISubModules {
+public enum ESubElements {
 
     TEXTBOX("Text Box"),
     CHECKBOX("Check Box"),
@@ -18,7 +18,6 @@ public enum ESubElements implements ISubModules {
         this.subModuleName = subModuleName;
     }
 
-    @Override
     public String getName() {
         return this.subModuleName;
     }

@@ -1,16 +1,11 @@
 package com.paruk.elements;
 
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-
 import java.util.List;
 
-public class SubjectField {
-
-    private WebDriver driver;
+public class SubjectField extends PageElement{
 
     @FindBy(xpath = "//input[@id='subjectsInput']")
     private WebElement fieldForInput;
@@ -19,8 +14,7 @@ public class SubjectField {
     private List<WebElement> listOfSubjects;
 
     public SubjectField(WebDriver webdriver) {
-        this.driver = webdriver;
-        PageFactory.initElements(driver,this);
+        super(webdriver);
     }
 
     public void fillSubject(String subjectName){

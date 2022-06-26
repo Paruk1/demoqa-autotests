@@ -1,135 +1,109 @@
 package com.paruk.pages;
 
-import com.paruk.elements.DatePicker;
-import com.paruk.elements.HobbiesCheckBox;
-import com.paruk.elements.SubjectField;
+import com.paruk.elements.*;
 import com.paruk.enums.EHobbies;
 import com.paruk.enums.EMonth;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.time.DayOfWeek;
-import java.util.Calendar;
 
 public class StudentRegistrationForm extends PageWithMenu {
 
-    @FindBy(xpath = "//input[@id='firstName']")
-    private WebElement firstName;
-
-    @FindBy(xpath = "//input[@id='lastName']")
-    private WebElement lastName;
-
-    @FindBy(xpath = "//input[@id='userEmail']")
-    private WebElement email;
-
-    @FindBy(xpath = "//div[@class='custom-control custom-radio custom-control-inline'][1]")
-    private WebElement radioButtonMale;
-
-    @FindBy(xpath = "//input[@id='gender-radio-2']")
-    private WebElement radioButtonFemale;
-
-    @FindBy(xpath = "//input[@id='gender-radio-3']")
-    private WebElement radioButtonOther;
-
-    @FindBy(xpath = "//input[@id='userNumber']")
-    private WebElement mobileNumber;
-
+    private NameFields nameFields;
+    private EmailField emailField;
+    private Gender gender;
+    private MobileField mobileField;
     private DatePicker datePicker;
-
     private SubjectField subjectField;
-
     private HobbiesCheckBox hobbiesCheckBox;
-
-    @FindBy(xpath = "//input[@id='uploadPicture']")
-    private WebElement selectPicture;
-
-    @FindBy(xpath = "//textarea[@id='currentAddress']")
-    private WebElement currentAddress;
-
-    @FindBy(xpath = "//div[@id='state']")////////////////////
-    private WebElement selectState;
-
-    @FindBy(xpath = "//div[@id='city']")////////////////////
-    private WebElement selectCity;
+    private Picture picture;
+    private CurrentAddressField currentAddressField;
+    private StateAndCity stateAndCity;
 
     @FindBy(xpath = "//button[@id='submit']")
     private WebElement btnSubmit;
 
-    public StudentRegistrationForm(WebDriver driver){
+    public StudentRegistrationForm(WebDriver driver) {
         super(driver);
+        nameFields = new NameFields(driver);
+        emailField = new EmailField(driver);
+        gender = new Gender(driver);
+        mobileField = new MobileField(driver);
         subjectField = new SubjectField(driver);
         hobbiesCheckBox = new HobbiesCheckBox(driver);
         datePicker = new DatePicker(driver);
+        currentAddressField = new CurrentAddressField(driver);
+        stateAndCity = new StateAndCity(driver);
+        picture = new Picture(driver);
     }
 
-    public StudentRegistrationForm fillFirstName(String firstNamex) {
-        firstName.sendKeys(firstNamex);
+    public StudentRegistrationForm fillFirstName(String firstName) {
+        nameFields.fillFirstName(firstName);
         return this;
     }
 
-    public StudentRegistrationForm fillLastName(String lastname) {
-        lastName.sendKeys(lastname);
+    public StudentRegistrationForm fillLastName(String lastName) {
+        nameFields.fillLastName(lastName);
         return this;
     }
 
-
-    public StudentRegistrationForm fillEmailAddress(String name) {
-        email.sendKeys(name);
+    public StudentRegistrationForm fillEmailAddress(String address) {
+        emailField.fillEmail(address);
         return this;
     }
-
 
     public StudentRegistrationForm selectMale() {
-        webDriverWait.until(ExpectedConditions.elementToBeClickable(radioButtonMale));
-        radioButtonMale.click();
+        gender.selectMale();
         return this;
     }
 
     public StudentRegistrationForm selectFemale() {
-        radioButtonFemale.click();
+        gender.selectFemale();
         return this;
     }
 
     public StudentRegistrationForm selectOther() {
-        radioButtonOther.click();
+        gender.selectOther();
         return this;
     }
 
 
     public StudentRegistrationForm fillMobileNumber(String number) {
-        mobileNumber.sendKeys(number);
+        mobileField.fillMobileNumber(number);
         return this;
     }
 
-    public <E extends EMonth>StudentRegistrationForm selectMonthYearDay(E month,int year,int day){
+    public <E extends EMonth> StudentRegistrationForm selectMonthYearDay(E month, int year, int day) {
         datePicker.selectMonth(month);
         datePicker.selectYear(year);
         datePicker.selectDay(day);
         return this;
     }
 
-
     public StudentRegistrationForm addSubject(String subjectName) {
         subjectField.fillSubject(subjectName);
         return this;
     }
 
-
-    public <E extends EHobbies>StudentRegistrationForm selectHobbie(E hobbieName){
+    public <E extends EHobbies> StudentRegistrationForm selectHobbie(E hobbieName) {
         hobbiesCheckBox.select(hobbieName);
         return this;
     }
 
-    public StudentRegistrationForm selectPicture(){
-        selectPicture.click();
+    public StudentRegistrationForm selectPicture(String path) {
+        picture.setFile(path);
         return this;
     }
 
-
     public StudentRegistrationForm fillCurrentAddress(String address) {
-        currentAddress.sendKeys(address);
+        currentAddressField.fillCurrentAddress(address);
+        return this;
+    }
+
+    public StudentRegistrationForm selectStateAndCity(String stateName, String cityName) {
+        stateAndCity.selectState(stateName);
+        stateAndCity.selectCity(cityName);
         return this;
     }
 
@@ -137,7 +111,6 @@ public class StudentRegistrationForm extends PageWithMenu {
         btnSubmit.click();
         return this;
     }
-
 
 
 }

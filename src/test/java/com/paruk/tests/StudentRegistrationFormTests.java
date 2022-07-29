@@ -57,7 +57,9 @@ public class StudentRegistrationFormTests extends BaseTest {
                 .clickSubmit();
 
         Table table = new Table(driver);
-        System.out.println(table.findValueByKey("Date of Birth"));
+
+        Assertions.assertEquals(studentRegistrationForm.getRegistrationData(),table.getTableData());
+
         Helper.zoomIn(4);
     }
 }
